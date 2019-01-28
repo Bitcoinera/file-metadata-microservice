@@ -18,6 +18,8 @@ app.post('/api/fileanalyse', upload.single('upfile'), (req, res, next) => {
 
   if (file === undefined) {
     res.send('File not recognized');
+  } else if (file.size >= 1073741824) { // reject all files heavier than 1GB
+    res.send('File is too big to upload');
   } else {
   res.json({filename: file.originalname, type: file.mimetype, size: file.size});
   }
